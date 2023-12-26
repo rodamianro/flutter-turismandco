@@ -5,7 +5,7 @@ import 'package:turismandco/mocks/mock_location.dart';
 void main() {
   return runApp(MaterialApp(
     home: LocationList(
-      locations: MockLocation.FetchAll(),
+      locations: MockLocation.fetchAll(),
     ),
   ));
 }

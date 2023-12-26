@@ -80,12 +80,20 @@ class MockLocation {
     ),
   ];
 
-  static Location FetchAny() {
+  static Location fetchAny() {
     var randomPosition = Random().nextInt(_locations.length);
     return _locations[randomPosition];
   }
 
-  static List<Location> FetchAll() {
+  static List<Location> fetchAll() {
     return _locations;
+  }
+
+  static Location fetch(int index) {
+    var location = fetchAny();
+    if (index < _locations.length) {
+      location = _locations[index];
+    }
+    return location;
   }
 }
