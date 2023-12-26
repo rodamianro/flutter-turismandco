@@ -15,9 +15,7 @@ class LocationDetail extends StatelessWidget {
           style: Styles.navBarTitle,
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: ListView(
         children: _renderBody(context, location),
       ),
     );
