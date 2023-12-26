@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turismandco/location_detail.dart';
 import 'package:turismandco/models/location.dart';
 import 'package:turismandco/styles.dart';
 
@@ -16,13 +17,26 @@ class LocationList extends StatelessWidget {
       ),
       body: ListView.builder(
         itemCount: locations.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            contentPadding: const EdgeInsets.all(10.0),
-            leading: _itemThumbnail(locations[index]),
-            title: _itemTitle(locations[index]),
-          );
-        },
+        itemBuilder: _listViewItemBuilder,
+      ),
+    );
+  }
+
+  Widget _listViewItemBuilder(BuildContext context, int index) {
+    var location = locations[index];
+    return ListTile(
+      contentPadding: const EdgeInsets.all(10.0),
+      leading: _itemThumbnail(location),
+      title: _itemTitle(location),
+      onTap: () => _navigationToLocationDetail(context, location),
+    );
+  }
+
+  void _navigationToLocationDetail(BuildContext context, Location location) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LocationDetail(location: location),
       ),
     );
   }
