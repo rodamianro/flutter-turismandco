@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:turismandco/location_list.dart';
-import 'package:turismandco/mocks/mock_location.dart';
+import 'app.dart';
 
 void main() {
-  return runApp(MaterialApp(
-    home: LocationList(
-      locations: MockLocation.fetchAll(),
-    ),
-  ));
+  return runApp(const App());
 }
