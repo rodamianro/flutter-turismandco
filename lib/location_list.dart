@@ -42,9 +42,19 @@ class LocationList extends StatelessWidget {
   }
 
   Widget _itemThumbnail(Location location) {
+    Image image = Image.network(
+      location.url,
+      fit: BoxFit.fitWidth,
+      errorBuilder: (context, error, stackTrace) {
+        return const Image(
+          image: AssetImage('assets/images/placeholder.png'),
+          fit: BoxFit.fitWidth,
+        );
+      },
+    );
     return Container(
       constraints: const BoxConstraints.tightFor(width: 100.0),
-      child: Image.network(location.url, fit: BoxFit.fitWidth),
+      child: image,
     );
   }
 
