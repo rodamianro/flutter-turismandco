@@ -11,6 +11,7 @@ class LocationsList extends StatefulWidget {
 
 class _LocationListState extends State<LocationsList> {
   List<Location> locations = [];
+  bool loading = false;
 
   @override
   void initState() {
@@ -27,18 +28,43 @@ class _LocationListState extends State<LocationsList> {
           style: Styles.navBarTitle,
         ),
       ),
-      body: ListView.builder(
-        itemCount: locations.length,
-        itemBuilder: _listViewItemBuilder,
+      body: Column(
+        children: [
+          _renderProgressBar(context),
+          Expanded(
+            child: _renderListView(context),
+          )
+        ],
       ),
     );
   }
 
   loadData() async {
-    final locations = await Location.fetchAll();
-    setState(() {
-      this.locations = locations;
-    });
+    if (mounted) {
+      setState(() => loading = true);
+      final locations = await Location.fetchAll();
+      setState(() {
+        this.locations = locations;
+        loading = false;
+      });
+    }
+  }
+
+  Widget _renderListView(BuildContext context) {
+    return ListView.builder(
+      itemCount: locations.length,
+      itemBuilder: _listViewItemBuilder,
+    );
+  }
+
+  Widget _renderProgressBar(BuildContext context) {
+    return (loading
+        ? const LinearProgressIndicator(
+            value: null,
+            backgroundColor: Colors.white,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+          )
+        : Container());
   }
 
   Widget _listViewItemBuilder(BuildContext context, int index) {
