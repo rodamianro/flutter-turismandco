@@ -30,22 +30,23 @@ class _LocationDetailState extends State<LocationDetail> {
           style: Styles.navBarTitle,
         ),
       ),
-      body: Column(
-        children: [
-          _renderProgressBar(context),
-          SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: _renderBody(context, location),
+      body: RefreshIndicator(
+        onRefresh: loadData,
+        child: Column(
+          children: [
+            _renderProgressBar(context),
+            Expanded(
+              child: ListView(
+                children: _renderBody(context, location),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  loadData() async {
+  Future<void> loadData() async {
     if (mounted) {
       setState(() {
         loading = true;
