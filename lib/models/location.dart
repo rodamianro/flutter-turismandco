@@ -21,6 +21,12 @@ class Location {
     this.facts,
   });
 
+  Location.blank()
+      : id = 0,
+        name = '',
+        url = '',
+        facts = [];
+
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);
   Map<String, dynamic> toJson() => _$LocationToJson(this);

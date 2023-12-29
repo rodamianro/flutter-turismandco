@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:turismandco/mocks/mock_location.dart';
 import 'package:turismandco/models/location.dart';
 import 'package:turismandco/styles.dart';
 
-class LocationDetail extends StatelessWidget {
+class LocationDetail extends StatefulWidget {
   final int locationID;
   const LocationDetail({super.key, required this.locationID});
 
   @override
+  createState() => _LocationDetailState();
+}
+
+class _LocationDetailState extends State<LocationDetail> {
+  Location location = Location.blank();
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var location = MockLocation.fetch(locationID);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -25,6 +36,15 @@ class LocationDetail extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  loadData() async {
+    final location = await Location.fetchByID(widget.locationID);
+    if (mounted) {
+      setState(() {
+        this.location = location;
+      });
+    }
   }
 
   List<Widget> _renderBody(BuildContext context, Location location) {
@@ -63,13 +83,15 @@ class LocationDetail extends StatelessWidget {
   }
 
   Widget _bannerImage(String url, double height) {
-    return Container(
-      constraints: BoxConstraints.tightFor(height: height),
-      child: Image.network(
+    Image? image;
+    if (url.isNotEmpty) {
+      image = Image.network(
         url,
         fit: BoxFit.fitWidth,
-      ),
-    );
+      );
+    }
+    return Container(
+        constraints: BoxConstraints.tightFor(height: height), child: image);
   }
 
   Widget _section(String title, Color color) {

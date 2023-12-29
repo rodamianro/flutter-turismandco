@@ -3,9 +3,21 @@ import 'package:turismandco/location_detail.dart';
 import 'package:turismandco/models/location.dart';
 import 'package:turismandco/styles.dart';
 
-class LocationList extends StatelessWidget {
-  final List<Location> locations;
-  const LocationList({super.key, required this.locations});
+class LocationsList extends StatefulWidget {
+  const LocationsList({super.key});
+  @override
+  createState() => _LocationListState();
+}
+
+class _LocationListState extends State<LocationsList> {
+  List<Location> locations = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,21 +34,28 @@ class LocationList extends StatelessWidget {
     );
   }
 
+  loadData() async {
+    final locations = await Location.fetchAll();
+    setState(() {
+      this.locations = locations;
+    });
+  }
+
   Widget _listViewItemBuilder(BuildContext context, int index) {
     var location = locations[index];
     return ListTile(
       contentPadding: const EdgeInsets.all(10.0),
       leading: _itemThumbnail(location),
       title: _itemTitle(location),
-      onTap: () => _navigationToLocationDetail(context, index),
+      onTap: () => _navigationToLocationDetail(context, location.id),
     );
   }
 
-  void _navigationToLocationDetail(BuildContext context, int index) {
+  void _navigationToLocationDetail(BuildContext context, int locationID) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LocationDetail(locationID: index),
+        builder: (context) => LocationDetail(locationID: locationID),
       ),
     );
   }

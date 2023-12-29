@@ -2,7 +2,6 @@ import "dart:convert";
 
 import "package:flutter_test/flutter_test.dart";
 import "package:turismandco/models/location.dart";
-import "dart:async";
 
 void main() {
   test('Test location deserialization dummy', () {
