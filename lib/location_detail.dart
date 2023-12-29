@@ -36,9 +36,11 @@ class LocationDetail extends StatelessWidget {
 
   List<Widget> _renderFacts(BuildContext context, Location location) {
     var result = <Widget>[];
-    for (int i = 0; i < location.facts.length; i++) {
-      result.add(_sectionTitle(location.facts[i].title));
-      result.add(_sectionText(location.facts[i].text));
+    if (location.facts != null) {
+      for (int i = 0; i < location.facts!.length; i++) {
+        result.add(_sectionTitle(location.facts![i].title));
+        result.add(_sectionText(location.facts![i].text));
+      }
     }
     return result;
   }

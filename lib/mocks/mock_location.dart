@@ -6,6 +6,7 @@ import 'package:turismandco/models/location_fact.dart';
 class MockLocation {
   static final List<Location> _locations = [
     const Location(
+      id: 1,
       name: 'Arashiyama Bamboo Grove',
       url:
           'https://cdn-images-1.medium.com/max/2000/1*vdJuSUKWl_SA9Lp-32ebnA.jpeg',
@@ -21,6 +22,7 @@ class MockLocation {
       ],
     ),
     const Location(
+      id: 2,
       name: 'Mount Fuji',
       url:
           'https://cdn-images-1.medium.com/max/2000/1*vdJuSUKWl_SA9Lp-32ebnA.jpeg',
@@ -36,6 +38,7 @@ class MockLocation {
       ],
     ),
     const Location(
+      id: 3,
       name: 'Kiyomizu-dera',
       url: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Kiyomizu.jpg',
       facts: <LocationFact>[
@@ -49,6 +52,7 @@ class MockLocation {
       ],
     ),
     const Location(
+      id: 4,
       name: 'Kinkaku-ji',
       url:
           'https://cdn-images-1.medium.com/max/1600/1*sncLZ1eNLYk3s-v76nJn8w.jpeg',
@@ -64,6 +68,7 @@ class MockLocation {
       ],
     ),
     const Location(
+      id: 5,
       name: 'Odaiba',
       url:
           'https://jp.openrice.com/userphoto/Article/0/1/0000CM2AF2F38CD85AB341j.jpg',
