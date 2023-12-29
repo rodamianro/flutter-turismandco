@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turismandco/components/progress_bar.dart';
 import 'package:turismandco/models/location.dart';
 import 'package:turismandco/styles.dart';
 
@@ -12,6 +13,7 @@ class LocationDetail extends StatefulWidget {
 
 class _LocationDetailState extends State<LocationDetail> {
   Location location = Location.blank();
+  bool loading = false;
 
   @override
   void initState() {
@@ -28,23 +30,36 @@ class _LocationDetailState extends State<LocationDetail> {
           style: Styles.navBarTitle,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: _renderBody(context, location),
-        ),
+      body: Column(
+        children: [
+          _renderProgressBar(context),
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: _renderBody(context, location),
+            ),
+          ),
+        ],
       ),
     );
   }
 
   loadData() async {
-    final location = await Location.fetchByID(widget.locationID);
     if (mounted) {
       setState(() {
+        loading = true;
+      });
+      final location = await Location.fetchByID(widget.locationID);
+      setState(() {
         this.location = location;
+        loading = false;
       });
     }
+  }
+
+  Widget _renderProgressBar(BuildContext context) {
+    return (loading ? const DefaultProgressBar() : Container());
   }
 
   List<Widget> _renderBody(BuildContext context, Location location) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turismandco/components/progress_bar.dart';
 import 'package:turismandco/location_detail.dart';
 import 'package:turismandco/models/location.dart';
 import 'package:turismandco/styles.dart';
@@ -58,13 +59,7 @@ class _LocationListState extends State<LocationsList> {
   }
 
   Widget _renderProgressBar(BuildContext context) {
-    return (loading
-        ? const LinearProgressIndicator(
-            value: null,
-            backgroundColor: Colors.white,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
-          )
-        : Container());
+    return (loading ? const DefaultProgressBar() : Container());
   }
 
   Widget _listViewItemBuilder(BuildContext context, int index) {
