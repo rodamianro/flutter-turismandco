@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:turismandco/components/location_tile.dart';
 import 'package:turismandco/components/progress_bar.dart';
 import 'package:turismandco/location_detail.dart';
 import 'package:turismandco/models/location.dart';
 import 'package:turismandco/styles.dart';
+
+const double listItemHeight = 245.0;
+const double listItemFooterHeight = 90.0;
 
 class LocationsList extends StatefulWidget {
   const LocationsList({super.key});
@@ -67,11 +71,18 @@ class _LocationListState extends State<LocationsList> {
 
   Widget _listViewItemBuilder(BuildContext context, int index) {
     var location = locations[index];
-    return ListTile(
-      contentPadding: const EdgeInsets.all(10.0),
-      leading: _itemThumbnail(location),
-      title: _itemTitle(location),
+    return GestureDetector(
       onTap: () => _navigationToLocationDetail(context, location.id),
+      child: SizedBox(
+        height: listItemHeight,
+        child: Stack(
+          children: [
+            _tileImage(location.url, MediaQuery.of(context).size.width,
+                listItemHeight),
+            _tileFooter(location),
+          ],
+        ),
+      ),
     );
   }
 
@@ -84,19 +95,38 @@ class _LocationListState extends State<LocationsList> {
     );
   }
 
-  Widget _itemThumbnail(Location location) {
+  Widget _tileFooter(Location location) {
+    final info = LocationTile(
+      location: location,
+      darkTheme: true,
+    );
+    final overlay = Container(
+      padding: const EdgeInsets.symmetric(
+          vertical: 5.0, horizontal: Styles.horizontalPaddingDefault),
+      decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
+      height: listItemFooterHeight,
+      child: info,
+    );
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [overlay],
+    );
+  }
+
+  Widget _tileImage(String url, double width, double height) {
     Image image = Image.network(
-      location.url,
-      fit: BoxFit.fitWidth,
+      url,
+      fit: BoxFit.cover,
       errorBuilder: (context, error, stackTrace) {
         return const Image(
           image: AssetImage('assets/images/placeholder.png'),
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.cover,
         );
       },
     );
     return Container(
-      constraints: const BoxConstraints.tightFor(width: 100.0),
+      constraints: const BoxConstraints.expand(),
       child: image,
     );
   }

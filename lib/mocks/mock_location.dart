@@ -20,6 +20,8 @@ class MockLocation {
             text:
                 'Kyoto airport, with several terminals, is located 16 kilometres south of the city and is also known as Kyoto. Kyoto can also be reached by transport links from other regional airports.')
       ],
+      userItinerarySummary: '',
+      tourPackageName: '',
     ),
     const Location(
       id: 2,
@@ -36,6 +38,8 @@ class MockLocation {
             text:
                 'There are three cities that surround Mount Fuji: Gotemba, Fujiyoshida and Fujinomiya.')
       ],
+      userItinerarySummary: '',
+      tourPackageName: '',
     ),
     const Location(
       id: 3,
@@ -50,6 +54,8 @@ class MockLocation {
             title: 'Architectural Style',
             text: 'Japanese Buddhist architecture')
       ],
+      userItinerarySummary: '',
+      tourPackageName: '',
     ),
     const Location(
       id: 4,
@@ -66,6 +72,8 @@ class MockLocation {
             text:
                 'The Golden Pavilion is set in a magnificent Japanese strolling garden.')
       ],
+      userItinerarySummary: '',
+      tourPackageName: '',
     ),
     const Location(
       id: 5,
@@ -82,6 +90,8 @@ class MockLocation {
             text:
                 'The pedestrian path begins a short walk from Shibaura-futo Station along the Yurikamome on the "Tokyo side" of the bridge, while Odaiba Kaihinkoen Station is the nearest station on the "Odaiba side."')
       ],
+      userItinerarySummary: '',
+      tourPackageName: '',
     ),
   ];
 

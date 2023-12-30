@@ -12,12 +12,16 @@ class Location {
   final int id;
   final String name;
   final String url;
+  final String userItinerarySummary;
+  final String tourPackageName;
   final List<LocationFact>? facts;
 
   const Location({
     required this.id,
     required this.name,
     required this.url,
+    required this.userItinerarySummary,
+    required this.tourPackageName,
     this.facts,
   });
 
@@ -25,7 +29,9 @@ class Location {
       : id = 0,
         name = '',
         url = '',
-        facts = [];
+        facts = [],
+        userItinerarySummary = '',
+        tourPackageName = '';
 
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);

@@ -1,11 +1,40 @@
 import 'package:flutter/material.dart';
 
 class Styles {
+  static const String _fontNameDefault = 'Muli';
   static const _textSizeLarge = 25.0;
   static const _textSizeDefault = 16.0;
+  static const _textSizeSmall = 12.0;
+  static const double horizontalPaddingDefault = 12.0;
   static final Color _textColorStrong = _hexToColor('000000');
-  static final Color _textColorDefault = _hexToColor('666666');
-  static const String _fontNameDefault = 'Muli';
+  static final Color _textColorDefault = _hexToColor('000000');
+  static final Color _textColorFaint = _hexToColor('999999');
+  static final Color textColorBright = _hexToColor('FFFFFF');
+  static final Color accentColor = _hexToColor('FF0000');
+
+  static final locationTileCaption = TextStyle(
+    fontFamily: _fontNameDefault,
+    color: _textColorFaint,
+    fontSize: _textSizeSmall,
+  );
+
+  static final locationTileSubtitle = TextStyle(
+    fontFamily: _fontNameDefault,
+    color: accentColor,
+    fontSize: _textSizeDefault,
+  );
+
+  static final locationTileTitleDark = TextStyle(
+    fontFamily: _fontNameDefault,
+    color: textColorBright,
+    fontSize: _textSizeLarge,
+  );
+
+  static final locationTileTitleLight = TextStyle(
+    fontFamily: _fontNameDefault,
+    color: _textColorStrong,
+    fontSize: _textSizeLarge,
+  );
 
   static final headerLarge = TextStyle(
     fontSize: _textSizeLarge,
