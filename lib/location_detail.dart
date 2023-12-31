@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:turismandco/components/banner_image.dart';
+import 'package:turismandco/components/default_app_bar.dart';
+import 'package:turismandco/components/location_tile.dart';
 import 'package:turismandco/components/progress_bar.dart';
 import 'package:turismandco/models/location.dart';
 import 'package:turismandco/styles.dart';
@@ -24,22 +27,14 @@ class _LocationDetailState extends State<LocationDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          location.name,
-          style: Styles.navBarTitle,
-        ),
-      ),
+      appBar: DefaultAppBar(),
       body: RefreshIndicator(
         onRefresh: loadData,
-        child: Column(
+        child: Stack(
           children: [
+            _renderBody(context, location),
+            _renderFooter(context, location),
             _renderProgressBar(context),
-            Expanded(
-              child: ListView(
-                children: _renderBody(context, location),
-              ),
-            ),
           ],
         ),
       ),
@@ -63,11 +58,21 @@ class _LocationDetailState extends State<LocationDetail> {
     return (loading ? const DefaultProgressBar() : Container());
   }
 
-  List<Widget> _renderBody(BuildContext context, Location location) {
+  Widget _renderBody(BuildContext context, Location location) {
     var result = <Widget>[];
-    result.add(_bannerImage(location.url, 170));
+    result.add(BannerImage(url: location.url, height: 300));
+    result.add(_renderHeader(location));
     result.addAll(_renderFacts(context, location));
-    return result;
+    result.add(_renderBottomSpacer());
+    return Column(
+      children: [
+        Expanded(
+          child: ListView(
+            children: result,
+          ),
+        )
+      ],
+    );
   }
 
   List<Widget> _renderFacts(BuildContext context, Location location) {
@@ -98,22 +103,53 @@ class _LocationDetailState extends State<LocationDetail> {
     );
   }
 
-  Widget _bannerImage(String url, double height) {
-    Image? image;
-    if (url.isNotEmpty) {
-      image = Image.network(
-        url,
-        fit: BoxFit.fitWidth,
-      );
-    }
+  Widget _renderHeader(Location location) {
     return Container(
-        constraints: BoxConstraints.tightFor(height: height), child: image);
+      padding: const EdgeInsets.symmetric(
+        vertical: 20.0,
+        horizontal: Styles.horizontalPaddingDefault,
+      ),
+      child: LocationTile(
+        darkTheme: false,
+        location: location,
+      ),
+    );
   }
 
-  Widget _section(String title, Color color) {
+  Widget _renderFooter(BuildContext context, Location location) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          decoration: BoxDecoration(color: Colors.white.withOpacity(0.5)),
+          height: 100.0,
+          child: Container(
+            padding:
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+            child: _renderBookButton(),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _renderBookButton() {
+    return TextButton(
+      onPressed: _buttonAction,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+      ),
+      child: const Text('BOOK'),
+    );
+  }
+
+  void _buttonAction() {}
+
+  Widget _renderBottomSpacer() {
     return Container(
-      decoration: BoxDecoration(color: color),
-      child: Text(title),
+      height: 100,
     );
   }
 }

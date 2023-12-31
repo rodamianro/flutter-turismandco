@@ -99,3 +99,9 @@ flutter:
       fonts:
         - asset: assets/fonts/Muli-Light.ttf
           weight: 300
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 600
+        - asset: assets/fonts/Montserrat-Regular.ttf
+          weight: 300
